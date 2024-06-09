@@ -16,6 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.authenticate.ui.login.LoginScreen
+import com.example.authenticate.ui.main.MainScreen
+import com.example.authenticate.ui.signup.SignupScreen
 import com.example.authenticate.ui.theme.AuthenticateTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,6 +42,6 @@ fun AppNavigator() {
     NavHost(navController = navController, startDestination = "login") {
         composable("login") { LoginScreen(navController) }
         composable("signup") { SignupScreen(navController) }
-        composable("main") { MainScreen(navController) }
+        composable("main") { MainScreen() }
     }
 }

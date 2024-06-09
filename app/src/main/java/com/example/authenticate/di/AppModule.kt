@@ -9,9 +9,13 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+    // Provide FirebaseAuth instance
     single { FirebaseDataSource().getFirebaseAuth() }
+
+    // Provide AuthRepository implementation
     single<AuthRepository> { AuthRepositoryImpl(get()) }
 
+    // Provide ViewModels
     viewModel { LoginViewModel(get()) }
     viewModel { SignupViewModel(get()) }
 }

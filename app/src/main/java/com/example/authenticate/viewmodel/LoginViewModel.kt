@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -15,13 +16,17 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<Result<User>?>(null)
-    val loginState: StateFlow<Result<User>?> get() = _loginState
+    val loginState: StateFlow<Result<User>?> = _loginState.asStateFlow()
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            authRepository.login(email, password).collect {
-                _loginState.value = it
+            authRepository.login(email, password).collect { result ->
+                _loginState.value = result
             }
         }
+    }
+
+    fun resetState() {
+        _loginState.value = null
     }
 }

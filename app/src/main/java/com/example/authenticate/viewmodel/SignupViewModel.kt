@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SignupViewModel(
@@ -15,13 +16,17 @@ class SignupViewModel(
 ) : ViewModel() {
 
     private val _signupState = MutableStateFlow<Result<User>?>(null)
-    val signupState: StateFlow<Result<User>?> get() = _signupState
+    val signupState: StateFlow<Result<User>?> = _signupState.asStateFlow()
 
     fun signup(name: String, email: String, password: String) {
         viewModelScope.launch {
-            authRepository.signup(name, email, password).collect {
-                _signupState.value = it
+            authRepository.signup(name, email, password).collect { result ->
+                _signupState.value = result
             }
         }
+    }
+
+    fun resetState() {
+        _signupState.value = null
     }
 }
