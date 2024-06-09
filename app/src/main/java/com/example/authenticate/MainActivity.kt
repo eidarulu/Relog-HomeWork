@@ -13,6 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.authenticate.ui.theme.AuthenticateTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,13 +27,18 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                MainScreen()
+                AppNavigator()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
-    // Placeholder for navigation and screen content
+fun AppNavigator() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") { LoginScreen(navController) }
+        composable("signup") { SignupScreen(navController) }
+        composable("main") { MainScreen(navController) }
+    }
 }
