@@ -1,4 +1,4 @@
-package com.example.authenticate.data.source.remote
+package com.example.authenticate.data.source
 
 import com.google.firebase.auth.FirebaseAuth
 
