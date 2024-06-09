@@ -13,11 +13,11 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
     override suspend fun login(email: String, password: String): Flow<Result<User>> = flow {
         try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            val user = result.user?.let {
-                User(it.displayName ?: "", it.email ?: "")
-            }
-            emit(Result.success(user ?: throw Exception("User not found")))
+            firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            val user = firebaseAuth.currentUser
+            user?.let {
+                emit(Result.success(User(it.displayName ?: "", it.email ?: "")))
+            } ?: throw Exception("User not found")
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -25,12 +25,12 @@ class AuthRepositoryImpl(
 
     override suspend fun signup(name: String, email: String, password: String): Flow<Result<User>> = flow {
         try {
-            val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            val user = result.user?.let {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+            val user = firebaseAuth.currentUser
+            user?.let {
                 it.updateProfile(userProfileChangeRequest { displayName = name }).await()
-                User(name, it.email ?: "")
-            }
-            emit(Result.success(user ?: throw Exception("User not found")))
+                emit(Result.success(User(name, it.email ?: "")))
+            } ?: throw Exception("User not found")
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
