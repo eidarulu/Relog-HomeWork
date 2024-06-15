@@ -25,7 +25,7 @@ fun HaveAccountRow(
         modifier = Modifier.padding(top=12.dp, bottom = 52.dp)
     ){
         Text(
-            text = question,
+            text = "$question ",
             style = TextStyle(
                 fontSize = 18.sp,
                 fontFamily = FontFamily.Serif,

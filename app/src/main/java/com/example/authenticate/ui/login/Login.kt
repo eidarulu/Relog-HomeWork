@@ -1,6 +1,7 @@
 package com.example.authenticate.ui.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -43,7 +44,7 @@ fun LoginScreen(navController: NavController) {
 
     Surface(
         color = Color(0xFF253334),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         Box(modifier =  Modifier.fillMaxSize()){
             // Background Image
@@ -58,13 +59,15 @@ fun LoginScreen(navController: NavController) {
             // Content
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
             ) {
                 Text(
                     text = stringResource(R.string.login),
-                    style = MaterialTheme.typography.headlineMedium
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 if (errorEmail) {
