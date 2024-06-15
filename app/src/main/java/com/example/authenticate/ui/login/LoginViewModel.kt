@@ -4,12 +4,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.authenticate.data.Event
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 class LoginViewModel(private val auth: FirebaseAuth) : ViewModel() {
 
     val signedIn = mutableStateOf(false)
     private val inProgress = mutableStateOf(false)
-    private val popupNotification = mutableStateOf<Event<String>?>(null)
+    val popupNotification = mutableStateOf<Event<String>?>(null)
 
     fun login(email: String, pass: String) {
         inProgress.value = true

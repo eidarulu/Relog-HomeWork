@@ -1,6 +1,7 @@
 package com.example.authenticate.ui.signup
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -64,6 +65,7 @@ fun SignupScreen(navController: NavController) {
             // Content
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
@@ -75,8 +77,7 @@ fun SignupScreen(navController: NavController) {
                         fontFamily = FontFamily.Serif,
                         fontWeight = FontWeight(500),
                         color = Color.White
-                    ),
-                    modifier = Modifier.align(Alignment.Start)
+                    )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 AuthTextField(
