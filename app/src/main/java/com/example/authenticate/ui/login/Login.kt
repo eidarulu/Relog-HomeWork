@@ -37,6 +37,8 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(navController: NavController) {
+
+    // ViewModel is obtained from Koin
     val loginViewModel: LoginViewModel = getViewModel()
 
     var email by remember { mutableStateOf("") }
@@ -49,6 +51,7 @@ fun LoginScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize(),
     ) {
         Box(modifier =  Modifier.fillMaxSize()){
+
             // Background Image
             Image(painter = painterResource(id = R.drawable.bg1),
                 contentDescription = null,
@@ -71,7 +74,9 @@ fun LoginScreen(navController: NavController) {
                     color = Color.White,
                     style = MaterialTheme.typography.headlineLarge
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 if (errorEmail) {
                     Text(
                         text = "Enter email",
@@ -79,6 +84,7 @@ fun LoginScreen(navController: NavController) {
                         modifier = Modifier.padding(end = 100.dp)
                     )
                 }
+
                 AuthTextField(
                     hint = stringResource(id = R.string.email),
                     value = email,
@@ -90,7 +96,9 @@ fun LoginScreen(navController: NavController) {
                         imeAction = ImeAction.Next
                     )
                 )
+
                 Spacer(modifier = Modifier.height(8.dp))
+
                 if (errorPassword) {
                     Text(
                         text = "Enter Password",
@@ -98,6 +106,7 @@ fun LoginScreen(navController: NavController) {
                         modifier = Modifier.padding(end = 100.dp)
                     )
                 }
+
                 AuthTextField(
                     hint = stringResource(id = R.string.password),
                     value = password,
@@ -110,7 +119,9 @@ fun LoginScreen(navController: NavController) {
                         keyboardType = KeyboardType.Password
                     )
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 AuthButton(
                     onClick = {
                         if (email.isNotEmpty()) {
@@ -127,12 +138,15 @@ fun LoginScreen(navController: NavController) {
                     },
                     text = stringResource(id = R.string.login),
                 )
+
                 NotificationMessage(loginViewModel)
+
                 Spacer(modifier = Modifier.height(8.dp))
+
                 if (loginViewModel.signedIn.value) {
                     navController.navigate("main")
                 }
-                loginViewModel.signedIn.value = false
+                loginViewModel.signedIn.value = false // ?
 
                 HaveAccountRow(
                     onSignupTap = {
@@ -146,6 +160,7 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
+// displays a Toast message when there is a notification from the ViewModel
 @Composable
 fun NotificationMessage(lvm: LoginViewModel) {
     val notifState = lvm.popupNotification.value
